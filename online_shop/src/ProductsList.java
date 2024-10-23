@@ -69,8 +69,25 @@ public class ProductsList {
         }
         sb.append("Итоговая сумма: ").append(sumPrice()).append(" €").append(System.lineSeparator());
 
-        String result = (productsInBasket.isEmpty()) ? "Ваша корзина пуста" : sb.toString(); ;
-        System.out.println(result);
+
+        if (productsInBasket.isEmpty()) {
+            System.out.println("Ваша корзина пуста");
+            System.out.println("1 - продолжить покупки");
+            System.out.println("0 - завершить программу");
+            int number = scanner.nextInt();
+            switch (number) {
+                case 1:
+                    printBasket();
+                    break;
+                case 0:
+                    System.out.println("До новых встреч!");
+                    break;
+                default:
+                    System.out.println("Введите 1 или 0");
+            }
+        } else {
+            System.out.println(sb.toString());
+        }
 
     }
 
