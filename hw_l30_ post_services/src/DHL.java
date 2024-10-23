@@ -6,4 +6,9 @@ public class DHL implements PostDeliveryService{
         System.out.println("Наклей марку.");
         System.out.println("Передай письмо почтальону.");
     }
+
+    @Override
+    public String postServiceName() {
+        return "DHL";
+    }
 }

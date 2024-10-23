@@ -1,5 +1,6 @@
 public interface PostDeliveryService {
 
-    void sendPost ();
+    void sendPost();
+    String postServiceName();
 
 }

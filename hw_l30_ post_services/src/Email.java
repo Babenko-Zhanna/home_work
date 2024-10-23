@@ -5,4 +5,9 @@ public class Email implements PostDeliveryService{
         System.out.println("Введи адрес получателя.");
         System.out.println("Нажми \"отправить\"");
     }
+
+    @Override
+    public String postServiceName() {
+        return "Email";
+    }
 }
