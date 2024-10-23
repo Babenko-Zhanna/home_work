@@ -18,13 +18,13 @@ public class Main {
         int select = scanner.nextInt();
         PostDeliveryService selectedService = postOptions[select];
         System.out.println("Вы выбрали услугу " + selectedService.postServiceName());
-        send(selectedService);
+
+        Sender sender = new Sender();
+        sender.send(selectedService);
 
         scanner.close();
     }
 
-    public static void send (PostDeliveryService element) {
-        element.sendPost();
-    }
+
 
 }
