@@ -36,7 +36,7 @@ public class Student implements Comparable<Student>{
         return result;
     }
 
-    private int ratesNumber () {
+    private int ratesNumber () { // если нет элементов null, то равно rates.size()
         int result = 0;
         if (rates == null) {
             return result;
@@ -50,6 +50,9 @@ public class Student implements Comparable<Student>{
     }
 
     public double calcAverageScore () {
+        if (ratesNumber() == 0) {
+            return 0;
+        }
         return ratesSum()/ratesNumber();
     }
 
