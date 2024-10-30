@@ -26,7 +26,7 @@ public class Main {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i) > number) {
-                result.add(list.indexOf(list.get(i)));
+                result.add(i);
             }
         }
         return result;
