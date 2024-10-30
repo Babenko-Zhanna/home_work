@@ -15,19 +15,21 @@ public class MyLinkedList<T> {
         size++;
     }
 
-    public void addByIndex(int index, T element) {
-        Node<T> prev = getNodeByIndex(index - 1);
-        Node<T> next = getNodeByIndex(index);
+    public void add (int index, T element) {
         if (index < 0 || index >= size) {
-            System.out.println("Некорректный индекс");
-        } else if (index == 0) {
+            System.out.println("Некорректный индекс: " + index);
+            return;
+        }
+
+        Node<T> next = getNodeByIndex(index);
+
+        if (index == 0) {
             head = new Node<>(element, null, next);
+            head.getNext().setPrev(head);
         } else if (index == size - 1) {
-            Node<T> newNode = new Node<>(element, tail, null);
-            newNode.getPrev().setNext(newNode);
-            tail = newNode;
+            add(element);
         } else {
-            Node<T> newNode = new Node<>(element, prev, next);
+            Node<T> newNode = new Node<>(element,next.getPrev(), next);
             newNode.getPrev().setNext(newNode);
             newNode.getNext().setPrev(newNode);
         }
