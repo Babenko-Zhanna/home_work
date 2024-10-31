@@ -15,7 +15,8 @@ public class Main {
         ListIterator<String> listIterator = list.listIterator(i);
         int counter = 0;
         while (counter != n && listIterator.hasNext()){
-            list.remove(i);
+            listIterator.next();
+            listIterator.remove();
             counter++;
         }
     }
