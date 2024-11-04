@@ -10,6 +10,9 @@ public class Main {
 
     public static Map<String, Boolean> isRepeat (List<String> list) {
         Map<String, Boolean> result = new HashMap<>();
+        if (list == null) {
+            return result;
+        }
         for (String str : list) {
             Boolean isRepeat = result.get(str);
             result.put(str, isRepeat==null ? false : true);
