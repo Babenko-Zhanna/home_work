@@ -33,7 +33,20 @@ class BankAccountsHandlerTest {
                 isFiltered = false;
             }
         }
-        Assertions.assertTrue(isFiltered);
+        boolean finalIsFiltered = isFiltered;
+        int size = 0;
+        for (BankAccount acc : list) {
+            if (acc.getBalance() < 100) {
+                size++;
+            }
+        }
+        int finalSize = size;
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(finalIsFiltered),
+                () -> Assertions.assertTrue(finalSize == actualResult.size())
+
+        );
+
     }
 
     @Test
