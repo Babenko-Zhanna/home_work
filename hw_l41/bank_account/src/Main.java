@@ -15,24 +15,20 @@ public class Main {
         ));
 
         BankAccountsHandler bankAccountsHandler = new BankAccountsHandler(list);
-        List<BankAccount> bankAccounts = bankAccountsHandler.filteredList(ba -> ba.getBalance() < 100);
+        List<BankAccount> bankAccounts = bankAccountsHandler.getAccountsLessThan(100);
 
         System.out.println("Bank accounts with balance < 100");
         bankAccounts.forEach((ba) -> System.out.println(ba));
 
-        List<Person> ownersList = bankAccountsHandler.getInfo(ba -> ba.getOwner());
+        List<Person> ownersList = bankAccountsHandler.getOwnersList();
 
         System.out.println();
         System.out.println("List of owners");
         ownersList.forEach((p) -> System.out.println(p));
 
-        List<BankAccount> filteredList = bankAccountsHandler.filteredList(ba -> ba.getBalance() > 100000);
+        List<BankAccount> filteredList = bankAccountsHandler.getAccountsMoreThan(100000);
         BankAccountsHandler bankAccountsHandler1 = new BankAccountsHandler(filteredList);
-        List<String> accountsList = bankAccountsHandler1.getInfo(ba -> {
-            StringBuilder result = new StringBuilder();
-            result.append(ba.getOwner().getlName()).append(" ").append(ba.getOwner().getfName().charAt(0)).append(".; IBAN: ").append(ba.getIban()).append("; ").append(ba.getOwner().getEmail());
-            return result.toString();
-        });
+        List<String> accountsList = bankAccountsHandler1.getAccountsList();
 
         System.out.println();
         System.out.println("Bank accounts with balance > 100000");
