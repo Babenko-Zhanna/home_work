@@ -8,6 +8,7 @@ import java.util.List;
 
 class BankAccountsHandlerTest {
     private static List<BankAccount> list;
+    private static  BankAccountsHandler bankAccountsHandler;
 
     @BeforeEach
     void setUp() {
@@ -20,13 +21,16 @@ class BankAccountsHandlerTest {
                 new BankAccount(new Person("Lena", "Ivanova", "lena@mail.com"), "DE654321987", 250650.00),
                 new BankAccount(new Person("Kate", "Hudson", "kate@mail.com"), "DE951462785", 10.01)
         ));
+
+        bankAccountsHandler = new BankAccountsHandler(list);
     }
 
     @Test
-    @DisplayName("filteredList: список счетов -> список счетов с балансом больше 100")
-    void filteredList_regularCase() {
-        BankAccountsHandler bankAccountsHandler = new BankAccountsHandler(list);
-        List<BankAccount> actualResult = bankAccountsHandler.filteredList(ba -> ba.getBalance() < 100);
+    @DisplayName("getAccountsLessThan: список счетов -> список счетов с балансом больше 100")
+    void getAccountsLessThan_regularCase() {
+
+        List<BankAccount> actualResult = bankAccountsHandler.getAccountsLessThan(100);
+
         boolean isFiltered = true;
         for (BankAccount acc : actualResult) {
             if (acc.getBalance() >= 100) {
@@ -34,6 +38,7 @@ class BankAccountsHandlerTest {
             }
         }
         boolean finalIsFiltered = isFiltered;
+
         int size = 0;
         for (BankAccount acc : list) {
             if (acc.getBalance() < 100) {
@@ -41,6 +46,7 @@ class BankAccountsHandlerTest {
             }
         }
         int finalSize = size;
+
         Assertions.assertAll(
                 () -> Assertions.assertTrue(finalIsFiltered),
                 () -> Assertions.assertTrue(finalSize == actualResult.size())
@@ -50,27 +56,26 @@ class BankAccountsHandlerTest {
     }
 
     @Test
-    @DisplayName("filteredList: список счетов -> пустой список (нет элементов, соответствующих условию)")
-    void filteredList_negativeCase() {
+    @DisplayName("getAccountsLessThan: список счетов -> пустой список (нет элементов, соответствующих условию)")
+    void getAccountsLessThan_negativeCase() {
         list.get(1).setBalance(100.33);
         list.get(4).setBalance(105.33);
         list.get(6).setBalance(106.33);
-        BankAccountsHandler bankAccountsHandler = new BankAccountsHandler(list);
-        List<BankAccount> actualResult = bankAccountsHandler.filteredList(ba -> ba.getBalance() < 100);
+        List<BankAccount> actualResult = bankAccountsHandler.getAccountsLessThan(100);
         Assertions.assertTrue(actualResult.isEmpty());
     }
 
     @Test
-    @DisplayName("filteredList: список null -> пустой список")
-    void filteredList_listNull() {
+    @DisplayName("getAccountsLessThan: список null -> пустой список")
+    void getAccountsLessThan_listNull() {
         BankAccountsHandler bankAccountsHandler = new BankAccountsHandler(null);
-        List<BankAccount> actualResult = bankAccountsHandler.filteredList(ba -> ba.getBalance() < 100);
+        List<BankAccount> actualResult = bankAccountsHandler.getAccountsLessThan(100);
         Assertions.assertTrue(actualResult.isEmpty());
     }
 
     @Test
-    @DisplayName("getInfo: список счетов -> список владельцев счетов")
-    void getInfo_regularCase() {
+    @DisplayName("getOwner: список счетов -> список владельцев счетов")
+    void getOwner_regularCase() {
         List<Person> expectedResult = List.of(
                 new Person("Jack", "Jackson", "jack@mail.com"),
                 new Person("John", "Johnson", "john@mail.com"),
@@ -81,16 +86,38 @@ class BankAccountsHandlerTest {
                 new Person("Kate", "Hudson", "kate@mail.com")
         );
 
-        BankAccountsHandler bankAccountsHandler = new BankAccountsHandler(list);
-        List<Person> actualResult = bankAccountsHandler.getInfo(ba -> ba.getOwner());
+        List<Person> actualResult = bankAccountsHandler.getOwnersList();
         Assertions.assertIterableEquals(expectedResult, actualResult);
     }
 
     @Test
-    @DisplayName("getInfo: список null -> пустой список")
-    void getInfo_listNull() {
+    @DisplayName("getOwner: список null -> пустой список")
+    void getOwner_listNull() {
         BankAccountsHandler bankAccountsHandler = new BankAccountsHandler(null);
-        List<Person> actualResult = bankAccountsHandler.getInfo(ba -> ba.getOwner());
+        List<Person> actualResult = bankAccountsHandler.getOwnersList();
+        Assertions.assertTrue(actualResult.isEmpty());
+    }
+
+    @Test
+    void getAccountsList_regularCase_returnStringList() {
+        List<String> expectedResult = List.of(
+                "Jackson J.; IBAN: DE123456789; jack@mail.com",
+                "Johnson J.; IBAN: DE123456654; john@mail.com",
+                "Simpson S.; IBAN: DE987654321; sam@mail.com",
+                "Peterson P.; IBAN: DE789456123; peter@mail.com",
+                "Nickson N.; IBAN: DE654987321; nick@mail.com",
+                "Ivanova L.; IBAN: DE654321987; lena@mail.com",
+                "Hudson K.; IBAN: DE951462785; kate@mail.com"
+        );
+
+        List<String> actualResult = bankAccountsHandler.getAccountsList();
+        Assertions.assertIterableEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getAccountsList_NullCase_returnEmptyList() {
+        BankAccountsHandler bankAccountsHandler = new BankAccountsHandler(null);
+        List<String> actualResult = bankAccountsHandler.getAccountsList();
         Assertions.assertTrue(actualResult.isEmpty());
     }
 }
