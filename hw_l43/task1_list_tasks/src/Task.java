@@ -40,15 +40,11 @@ public class Task {
         if (o == null || getClass() != o.getClass()) return false;
 
         Task task = (Task) o;
-        return number == task.number && daysInProcessing == task.daysInProcessing && Objects.equals(description, task.description) && Objects.equals(status, task.status);
+        return number == task.number;
     }
 
     @Override
     public int hashCode() {
-        int result = number;
-        result = 31 * result + Objects.hashCode(description);
-        result = 31 * result + Objects.hashCode(status);
-        result = 31 * result + daysInProcessing;
-        return result;
+        return number;
     }
 }
