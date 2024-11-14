@@ -40,7 +40,7 @@ public class TeamLead {
 
     public String doTask(String taskMsg){
         if(status.equals("not available")){
-            throw new TeamLeadUnavailableNowException();
+            throw new TeamLeadUnavailableNowException("Почему TeamLead не на месте!");
         }
 
         Optional<Programmer> firstAvailable = team.stream()
@@ -48,7 +48,7 @@ public class TeamLead {
                 .findFirst();
 
         if(firstAvailable.isEmpty()){
-            throw new AllProgrammersAreBusyNowException();
+            throw new AllProgrammersAreBusyNowException("Нам не хватает программистов!");
         }
 
         Programmer availableProgrammer = firstAvailable.get();

@@ -22,7 +22,7 @@ public class Main {
             try{
                 System.out.println(programmer.doWork("Implement commenting feature"));
             } catch (ProgrammerStatusException e){
-                e.printMessage();
+                System.out.println(e.getMessage());
             }
             System.out.println();
         });
@@ -35,7 +35,7 @@ public class Main {
         try {
             System.out.println(teamLead.doTask("Implement commenting feature"));
         } catch (TeamMemberStatusException e){
-            e.printMessage();
+            System.out.println(e.getMessage());
         }
 
     }

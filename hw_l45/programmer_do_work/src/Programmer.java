@@ -35,10 +35,10 @@ public class Programmer {
 
     public String doWork(String taskMsg){
         if(status.equals("not available")){
-            throw new ProgrammerUnavailableNowException();
+            throw new ProgrammerUnavailableNowException("Программист не доступен");
         }
         if(status.equals("busy")){
-            throw new ProgrammerBusyException();
+            throw new ProgrammerBusyException("Программист занят другой задачей");
         }
         return "Приступаю к задаче: " + taskMsg;
     }

@@ -1,6 +1,6 @@
 public class ProgrammerUnavailableNowException extends ProgrammerStatusException{
-    @Override
-    public void printMessage() {
-        System.out.println("Программист не доступен");
+
+    public ProgrammerUnavailableNowException(String message) {
+        super(message);
     }
 }
