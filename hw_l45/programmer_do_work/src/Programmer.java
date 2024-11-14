@@ -33,13 +33,13 @@ public class Programmer {
         status = "busy";
     }
 
-    public String doWork(){
+    public String doWork(String taskMsg){
         if(status.equals("not available")){
             throw new ProgrammerUnavailableNowException();
         }
         if(status.equals("busy")){
             throw new ProgrammerBusyException();
         }
-        return "Приступаю к работе!";
+        return "Приступаю к задаче: " + taskMsg;
     }
 }

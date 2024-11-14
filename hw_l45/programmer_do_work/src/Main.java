@@ -18,13 +18,25 @@ public class Main {
         list.add(programmer3);
 
         list.forEach( programmer -> {
-            System.out.print(programmer + ": ");
+            System.out.println(programmer + ": ");
             try{
-                System.out.println(programmer.doWork());
+                System.out.println(programmer.doWork("Implement commenting feature"));
             } catch (ProgrammerStatusException e){
                 e.printMessage();
             }
+            System.out.println();
         });
+
+        //--------------------------------------------------------------------------------------
+
+        programmer3.setStatusBusy();
+        TeamLead teamLead = new TeamLead("Sam", "Simpson", list);
+        //teamLead.setStatusUnavailable();
+        try {
+            System.out.println(teamLead.doTask("Implement commenting feature"));
+        } catch (TeamMemberStatusException e){
+            e.printMessage();
+        }
 
     }
 }

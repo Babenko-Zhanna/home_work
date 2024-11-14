@@ -1,3 +1,3 @@
-public class ProgrammerStatusException extends RuntimeException{
-    public void printMessage(){}
+public class ProgrammerStatusException extends TeamMemberStatusException{
+
 }
